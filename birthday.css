@@ -1,4 +1,4 @@
-/* Base Styles */
+to/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,9 +6,12 @@
 }
 
 body {
+ 
     font-family: 'Arial', sans-serif;
     background: url(./img.jpg);
-    background-size: 400% 400%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     animation: gradientBG 5s ease infinite;
     color: white;
     height: 100vh;
@@ -17,12 +20,6 @@ body {
     justify-content: center;
     align-items: center;
     touch-action: manipulation;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 .container {
