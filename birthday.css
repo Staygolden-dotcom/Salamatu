@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+    background: url(./img.jpg);
     background-size: 400% 400%;
     animation: gradientBG 5s ease infinite;
     color: white;
