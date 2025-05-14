@@ -2,13 +2,208 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="birthday.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For Salamatu ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+            touch-action: manipulation;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            word-wrap: break-word;
+        }
+
+        .countdown {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            padding: 15px;
+            min-width: 70px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .countdown-box:active {
+            transform: scale(0.95);
+        }
+
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 1s forwards 1s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Secret letter (hidden by default) */
+        .secret-letter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .secret-letter.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .secret-letter-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .secret-letter h2 {
+            color: #ff6b6b;
+            margin-top: 0;
+        }
+
+        .secret-letter p {
+            line-height: 1.6;
+        }
+
+        .close-letter {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Hidden heart (initially invisible and non-clickable) */
+        .hidden-heart {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            opacity: 0;
+            z-index: 50;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        /* Active state (when countdown ends) */
+        .hidden-heart.active {
+            opacity: 0.5;
+            pointer-events: all;
+            animation: pulse 2s infinite;
+        }
+
+        .hidden-heart.active:active {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Hearts & confetti (optimized for mobile) */
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 4s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #f00;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Hidden heart (initially disabled) -->
+    <div class="hidden-heart" id="hiddenHeart">❤️</div>
+
+    <!-- Main content -->
     <div class="container">
-        <h1>Counting Down to Salamatus Birthday! 🎂</h1>
+        <h1>Counting Down to Your Birthday! 🎂</h1>
         <div class="countdown">
             <div class="countdown-box">
                 <div class="countdown-value" id="days">00</div>
@@ -29,10 +224,136 @@
         </div>
         <div class="message">
             Get ready for the best celebration ever! 💖
-            <br> <p>From your Hater.</p>
         </div>
     </div>
 
-    <script src="birthday.js"></script>
+    <!-- Secret letter (hidden) -->
+    <div class="secret-letter" id="secretLetter">
+        <div class="secret-letter-content">
+            <h2>To Salamatu 💌</h2>
+            <p>
+                Every moment with you feels like magic. On your special day, 
+                I want you to know how much you mean to me. You’re my 
+                happiness, my laughter, and my greatest adventure. 
+                Happy birthday to the most amazing person in my life! 
+                I love you more than words can say. ❤️
+            </p>
+            <p>Moses Bernard</p
+            <button class="close-letter" id="closeLetter">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile optimizations
+        document.addEventListener('touchstart', function() {}, {passive: true});
+
+        // Set birthday date (YYYY, MM-1, DD)
+        const birthday = new Date(2025, 6, 6); // Example: Dec 25, 2024
+
+
+        // Secret letter elements
+        const hiddenHeart = document.getElementById('hiddenHeart');
+        const secretLetter = document.getElementById('secretLetter');
+        const closeLetter = document.getElementById('closeLetter');
+
+        // Enable letter only after countdown ends
+        let countdownEnded = false;
+
+        hiddenHeart.addEventListener('click', () => {
+            if (countdownEnded) {
+                secretLetter.classList.add('show');
+            }
+        });
+
+        closeLetter.addEventListener('click', () => {
+            secretLetter.classList.remove('show');
+        });
+
+        // Countdown with optimizations
+        let lastUpdate = 0;
+        function updateCountdown(timestamp) {
+            if (!timestamp || timestamp - lastUpdate >= 1000) {
+                lastUpdate = timestamp || Date.now();
+                
+                const now = new Date();
+                const diff = birthday - now;
+                
+                if (diff <= 0) {
+                    countdownEnded = true;
+                    document.querySelector('.container').innerHTML = `
+                        <h1>🎉 Happy Birthday! 🎉</h1>
+                        <p style="font-size: 1.3rem;">Tap the heart in the corner for a surprise! ❤️</p>
+                    `;
+                    // Activate the hidden heart
+                    hiddenHeart.classList.add('active');
+                    createHearts();
+                    return;
+                }
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                
+                if (seconds % 10 === 0) {
+                    createConfetti();
+                }
+            }
+            requestAnimationFrame(updateCountdown);
+        }
+        
+        // Hearts & confetti (optimized)
+        function createHearts() {
+            const heartInterval = setInterval(() => {
+                if (document.querySelectorAll('.heart').length > 15) return;
+                
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.fontSize = (Math.random() * 16 + 8) + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }, 500);
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#ffcc00', '#00ff00', '#00ccff'];
+            
+            for (let i = 0; i < 25; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '10vh';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = '50%';
+                document.body.appendChild(confetti);
+                
+                requestAnimationFrame(() => {
+                    confetti.style.opacity = '1';
+                    confetti.style.transform = `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 + 50}px)`;
+                    confetti.style.transition = 'all 1.5s ease-out';
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 1500);
+                });
+            }
+        }
+        
+        // Start the countdown
+        requestAnimationFrame(updateCountdown);
+        createHearts();
+    </script>
 </body>
-</html>
+    </html>
