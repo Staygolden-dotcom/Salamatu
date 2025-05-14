@@ -1,0 +1,233 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+    background-size: 400% 400%;
+    animation: gradientBG 5s ease infinite;
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: manipulation;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.countdown-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    padding: 20px 15px;
+    min-width: 80px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.countdown-item:hover {
+    transform: scale(1.05);
+}
+
+.countdown-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.message {
+    font-size: 1.3rem;
+    opacity: 0;
+    animation: fadeIn 1s forwards 1s;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Heart animation */
+.heart {
+    position: absolute;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+    z-index: 5;
+    opacity: 0.7;
+    will-change: transform;
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+    }
+    50% { 
+        transform: translateY(-30px) rotate(10deg); 
+    }
+}
+
+/* Secret Note Styles */
+.secret-note {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+.secret-note.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.note-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+    animation: slideUp 0.5s forwards;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); }
+    to { transform: translateY(0); }
+}
+
+.note-content h2 {
+    color: #ff6b6b;
+    margin-bottom: 20px;
+}
+
+.note-content p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.close-btn {
+    margin-top: 20px;
+    padding: 10px 25px;
+    background: #ff6b6b;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.close-btn:hover {
+    background: #ff5252;
+}
+
+/* Music Button */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    z-index: 50;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .countdown-item {
+        padding: 15px 10px;
+        min-width: 70px;
+    }
+    
+    .countdown-number {
+        font-size: 2rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.8rem;
+    }
+    
+    .message {
+        font-size: 1.1rem;
+    }
+    
+    .note-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .countdown {
+        gap: 10px;
+    }
+    
+    .countdown-item {
+        min-width: 60px;
+        padding: 10px 5px;
+    }
+    
+    .countdown-number {
+        font-size: 1.5rem;
+    }
+}
