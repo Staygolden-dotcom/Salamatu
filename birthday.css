@@ -39,7 +39,9 @@ body {
     font-family: Montserrat;
     text-shadow: 4px white;
 }
-
+.countdown-container .message {
+    color: crimson;
+}
 h1 {
     font-family: Montserrat;
     font-size: 2rem;
