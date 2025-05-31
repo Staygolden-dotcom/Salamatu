@@ -1,15 +1,16 @@
-/* Base Styles */
+
+to/* Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Montserrat;
+    font-family: Montserrat, sa;
 }
 
 body {
  
     font-family: Montserrat;
-    background: url(./img.jpg);
+    background: url(./IMG-20250424-WA0007.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -33,16 +34,36 @@ body {
     margin-top: 50px;
  
 }
-.container .countdown-container h1, .container .countdown-container p {
+.container , .container .countdown-container p {
+    color: rgb(235, 44, 107);
+    font-family: Montserrat;
+}
+.countdown-container h1{
     color: white;
     font-family: Montserrat;
-    text-shadow: 4px white;
 }
-.countdown-container .message {
-    color: crimson;
+.countdown-container .food-pulse {
+    display: inline-block;
+    transform-origin: center;
+    animation: foodPulse 1.5s infinite ease-in-out;
+    will-change: transform;
 }
+@keyframes foodPulse {
+    0%, 100% {
+      transform: scaleX(1) scaleY(1);
+    }
+    25% {
+      transform: scaleX(1.1) scaleY(0.95);
+    }
+    50% {
+      transform: scaleX(0.95) scaleY(1.1);
+    }
+    75% {
+      transform: scaleX(1.05) scaleY(1.05);
+    }
+  }
+  
 h1 {
-    font-family: Montserrat;
     font-size: 2rem;
     margin-bottom: 30px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
