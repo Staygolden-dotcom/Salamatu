@@ -23,10 +23,11 @@ function updateCountdown() {
   if (diff <= 0 && !countdownFinished) {
     countdownFinished = true;
     document.querySelector(".countdown-container").innerHTML = `
-            <h1>🎉 Happy Birthday Anita! 🎉🎉🎉</h1>
+            <h1 class="food-pulse" style="color: white;">🎉 Happy Birthday Anita! 🎉🎉🎉</h1>
             <button class="toggle-btn" id="toggleNote">Click Me</button>
         `;
-
+    document.querySelector("body").style.background =
+      "url(https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80) repeat";  
     // Show toggle button
     const newToggleBtn = document.getElementById("toggleNote");
     newToggleBtn.style.display = "inline-block";
@@ -75,10 +76,7 @@ function startCelebration() {
   // Create more hearts when countdown finishes
   celebrationInterval = setInterval(createHeart, 150);
 
-  // Create lots of confetti
-  for (let i = 0; i < 50; i++) {
-    setTimeout(createConfetti, i * 100);
-  }
+ 
 }
 
 function createHeart() {
@@ -96,47 +94,10 @@ function createHeart() {
     if (heart.parentNode) {
       heart.remove();
     }
-  }, 7000);
+  }, 100000);
 }
 
-function createConfetti() {
-  const colors = [
-    "#ff0000",
-    "#00ff00",
-    "#0000ff",
-    "#ffff00",
-    "#ff00ff",
-    "#00ffff",
-  ];
 
-  for (let i = 0; i < 10; i++) {
-    const confetti = document.createElement("div");
-    confetti.classList.add("confetti");
-    confetti.style.left = Math.random() * 100 + "vw";
-    confetti.style.top = "-10px";
-    confetti.style.width = Math.random() * 10 + 5 + "px";
-    confetti.style.height = Math.random() * 10 + 5 + "px";
-    confetti.style.backgroundColor =
-      colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.borderRadius = "50%";
-    confetti.style.opacity = "0";
-    document.body.appendChild(confetti);
-
-    setTimeout(() => {
-      confetti.style.opacity = "1";
-      confetti.style.transform = `translate(${Math.random() * 200 - 100}px, ${
-        Math.random() * 100 + 100
-      }px) rotate(${Math.random() * 360}deg)`;
-      confetti.style.transition = `all ${Math.random() * 1 + 1}s ease-out`;
-
-      setTimeout(() => {
-        if (confetti.parentNode) {
-          confetti.remove();
-        }
-      }, 1000);
-    }, 10);
-  }
-}
 
 // Initialize countdown
 updateCountdown();
@@ -162,3 +123,4 @@ document.addEventListener("visibilitychange", function () {
     }
   }
 });
+
