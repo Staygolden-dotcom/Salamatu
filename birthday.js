@@ -1,5 +1,5 @@
 // Set the birthday date (YYYY, MM-1, DD)
-const birthday = new Date(2025, 5, 6); // June 6, 2025
+const birthday = new Date(2025, 4, 6); // June 6, 2025
 
 // DOM Elements
 const daysEl = document.getElementById("days");
